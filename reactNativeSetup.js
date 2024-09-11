@@ -248,42 +248,9 @@ async function customInstall() {
 }
 
 export async function setupReactNative() {
-  // Run dependency check and installation first
-  await checkAndInstallDependencies();
-
-  while (true) {
-    const { setupType } = await inquirer.prompt([
-      {
-        type: 'list',
-        name: 'setupType',
-        message: 'Choose setup type:',
-        choices: [
-          { name: 'Full Automated Setup', value: 'full' },
-          { name: 'Custom Installation', value: 'custom' },
-          { name: 'Back to Main Menu', value: 'back' }
-        ]
-      }
-    ]);
-
-    if (setupType === 'back') return;
-
-    if (setupType === 'full') {
-      await fullAutomatedSetup();
-    } else {
-      await customInstall();
-    }
-
-    const { continue: shouldContinue } = await inquirer.prompt([
-      {
-        type: 'confirm',
-        name: 'continue',
-        message: 'Do you want to perform more React Native setup actions?',
-        default: false
-      }
-    ]);
-
-    if (!shouldContinue) return;
-  }
+  // Implement React Native setup logic here
+  console.log('Setting up React Native...');
+  // Add your React Native setup steps
 }
 
 async function performSetup(option, progressBar) {

@@ -4,6 +4,13 @@ import { execSync } from 'child_process';
 import { existsSync } from 'fs';
 import path from 'path';
 
+export async function setupIOS() {
+  console.log(chalk.blue('Setting up iOS environment...'));
+  // Add your iOS setup steps here
+  // For now, we'll just call the handleIosOptions function
+  await handleIosOptions();
+}
+
 export async function handleIosOptions() {
   const choices = [
     'List iOS devices',

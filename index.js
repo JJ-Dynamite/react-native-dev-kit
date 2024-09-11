@@ -1,80 +1,68 @@
 #!/usr/bin/env node
 
 import inquirer from 'inquirer';
-import chalk from 'chalk';
-import { installDependencies } from './utils.js';
-import { handleAndroidOptions } from './android.js';
-import { handleIosOptions } from './ios.js';
-import { handleMacCleanup } from './macCleanup.js';
-import { handleStudioOptions } from './studio.js';
-import { handleAiderOptions } from './aider.js';
+import { program } from 'commander';
 import { setupReactNative } from './reactNativeSetup.js';
+import { cleanupMac } from './macCleanup.js';
+import { setupIOS, handleIosOptions } from './ios.js';
+import { setupAndroid, handleAndroidOptions } from './android.js';
 
-const mainMenuOptions = [
-  'android',
-  'ios',
-  'mac-cleanup',
-  'studio',
-  'aider',
-  'react-native-setup'
-].sort();
+program
+  .version('1.0.0')
+  .description('RN-MDK: React Native Setup Automation CLI');
 
-async function main() {
-//   const { shouldInstall } = await inquirer.prompt([
-//     {
-//       type: 'confirm',
-//       name: 'shouldInstall',
-//       message: 'Do you want to install or update dependencies?',
-//       default: false
-//     }
-//   ]);
-
-//   if (shouldInstall) {
-//     await installDependencies();
-//   }
-
-  while (true) {
-    const { choice } = await inquirer.prompt([
-      {
-        type: 'list',
-        name: 'choice',
-        message: 'Select an option:',
-        choices: mainMenuOptions
-      }
-    ]);
-
-    switch (choice) {
-      case 'android':
-        await handleAndroidOptions();
-        break;
-      case 'ios':
-        await handleIosOptions();
-        break;
-      case 'mac-cleanup':
-        await handleMacCleanup();
-        break;
-      case 'studio':
-        await handleStudioOptions();
-        break;
-      case 'aider':
-        await handleAiderOptions();
-        break;
-      case 'react-native-setup':
-        await setupReactNative();
-        break;
+async function mainMenu() {
+  const { action } = await inquirer.prompt([
+    {
+      type: 'list',
+      name: 'action',
+      message: 'What would you like to do?',
+      choices: [
+        'Android Options',
+        'iOS Options',
+        'Full Setup',
+        'Cleanup Old Installations',
+        'Setup React Native',
+        'Setup iOS Environment',
+        'Setup Android Environment',
+        'Exit'
+      ]
     }
+  ]);
 
-    const { continue: shouldContinue } = await inquirer.prompt([
-      {
-        type: 'confirm',
-        name: 'continue',
-        message: 'Do you want to perform another action?',
-        default: true
-      }
-    ]);
-
-    if (!shouldContinue) break;
+  switch (action) {
+    case 'Full Setup':
+      await cleanupMac();
+      await setupReactNative();
+      await setupIOS();
+      await setupAndroid();
+      break;
+    case 'Cleanup Old Installations':
+      await cleanupMac();
+      break;
+    case 'Setup React Native':
+      await setupReactNative();
+      break;
+    case 'Setup iOS Environment':
+      await setupIOS();
+      break;
+    case 'Setup Android Environment':
+      await setupAndroid();
+      break;
+    case 'iOS Options':
+      await handleIosOptions();
+      break;
+    case 'Android Options':
+      await handleAndroidOptions();
+      break;
+    case 'Exit':
+      console.log('Thank you for using RN-MDK. Goodbye!');
+      process.exit(0);
   }
+
+  // Return to main menu after action is complete
+  await mainMenu();
 }
 
-main().catch(error => console.error(chalk.red('Error:', error.message)));
+console.log('Welcome to RN-MDK: React Native Setup Automation');
+mainMenu().catch(console.error);
