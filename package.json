@@ -1,0 +1,21 @@
+{
+  "name": "react-native-dev-kit",
+  "version": "1.0.0",
+  "description": "A CLI tool for setting up a React Native development environment on a Mac and cleaning up the system. and managing packages",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "latest",
+    "cli-progress": "^3.12.0",
+    "commander": "^12.1.0",
+    "inquirer": "^10.2.2",
+    "ora": "^8.1.0",
+    "prompt-sync": "^4.2.0",
+    "shelljs": "^0.8.5"
+  }
+}
