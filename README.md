@@ -35,15 +35,23 @@ Streamline your React Native development environment setup with this powerful au
 
 ## Usage
 
-After installation, run the tool using:
+After installation, you can use rn-mdk for various tasks in your React Native development workflow:
 
 ```bash
-rn-setup
+➜ rn-mdk                    
+Welcome to RN-MDK: React Native Mobile Development Kit
+? What would you like to do?
+❯ Android
+  iOS
+  Cleanup Mac Cache
+  Full Setup
+  Setup React Native
+  Setup iOS Environment
+  Setup Android Environment
+(Use arrow keys to reveal more choices) 
 ```
 
-You will be prompted to choose the setup options.
-
-### Options
+### Options(future flags)
 
 - `-c, --cleanup`: Remove old React Native installations
 - `-i, --ios`: Set up iOS development environment
@@ -57,18 +65,18 @@ You will be prompted to choose the setup options.
 1. Perform a full setup:
 
    ```bash
-   rn-setup --full
+   rn-mkd --full
    ```
 
 2. Clean up old installations and set up iOS environment:
 
    ```bash
-   rn-setup --cleanup --ios
+   rn-mkd --cleanup --ios
    ```
 
 3. Set up Android environment only:
    ```bash
-   rn-setup --android
+   rn-mkd --android
    ```
 
 ## Help
@@ -99,7 +107,7 @@ If you encounter any issues during the setup process, try the following:
 4. Run the cleanup option before attempting a full setup:
 
    ```bash
-   rn-setup --cleanup
+   rn-mkd --cleanup
    ```
 
 5. If problems persist, please open an issue on our GitHub repository with detailed information about the error and your system configuration.
@@ -137,3 +145,47 @@ We would like to thank the React Native community and all the contributors who h
 ## Setup
 
 To set up the project, run the following commands:
+
+## Future Features
+
+Here are some planned enhancements for future versions of rn-mdk:
+
+1. Automated dependency management: Intelligent updating and conflict resolution for project dependencies.
+2. Custom template support: Allow users to create and use their own project templates.
+3. Plugin system: Extend functionality through community-created plugins.
+4. Cross-platform code sharing: Improved tools for sharing code between iOS and Android.
+5. Performance optimization tools: Built-in profiling and suggestions for app performance improvements.
+6. Integrated testing framework: Streamlined setup and execution of unit and integration tests.
+7. CI/CD pipeline templates: Ready-to-use configurations for popular CI/CD platforms.
+8. Hot module replacement enhancements: Faster and more reliable HMR during development.
+9. Native module integration wizard: Simplified process for adding and configuring native modules.
+10. App store submission helper: Automate parts of the app store submission process.
+
+## Future Usage
+ ```bash
+ rn-mdk --cleanup
+ rn-mdk --ios
+ rn-mdk --android
+ rn-mdk --full
+
+# Initialize a new React Native project
+rn-mdk init MyNewProject
+
+# Run your React Native app
+rn-mdk run-android
+rn-mdk run-ios
+
+# Generate components or screens
+rn-mdk generate component MyComponent
+rn-mdk generate screen MyScreen
+
+# Add dependencies
+rn-mdk add redux react-redux
+# Rename a project
+rn-mdk rename MyNewProject MyOldProject
+
+# Auto migrate
+rn-mdk migrate 0.72 0.76
+ ```
+
+We're always looking to improve rn-mdk. If you have suggestions for additional features, please open an issue or submit a pull request!

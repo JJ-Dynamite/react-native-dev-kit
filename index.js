@@ -64,5 +64,5 @@ async function mainMenu() {
   await mainMenu();
 }
 
-console.log('Welcome to RN-MDK: React Native Setup Automation');
+console.log('Welcome to RN-MDK: React Native Mobile Development Kit 🚀 a complete automation kit for React Native');
 mainMenu().catch(console.error);
