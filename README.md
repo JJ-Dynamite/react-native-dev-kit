@@ -192,11 +192,6 @@ We're always looking to improve rn-mdk. If you have suggestions for additional f
 
 ## Tutorial
 
-Check out our tutorial video to get started:
-
-<video width="640" height="360" controls>
-  <source src="assets/tutorial.mov" type="video/quicktime">
-  Your browser does not support the video tag.
-</video>
+...
 
 If the video doesn't play, you can [download the tutorial video here](assets/tutorial.mov).
