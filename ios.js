@@ -6,9 +6,10 @@ import path from 'path';
 
 export async function setupIOS() {
   console.log(chalk.blue('Setting up iOS environment...'));
+  console.log('not implemented yet');
+
   // Add your iOS setup steps here
   // For now, we'll just call the handleIosOptions function
-  await handleIosOptions();
 }
 
 export async function handleIosOptions() {

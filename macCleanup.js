@@ -28,6 +28,7 @@ export async function cleanupMac() {
   await installMacCleanup();
 
   const options = [
+    { name: 'Cleanup (no options)', value: '' },
     { name: 'Dry run (no deletions)', value: '-n' },
     { name: 'Update Homebrew', value: '-u' },
     { name: 'Configure modules', value: '-c' },
@@ -55,7 +56,8 @@ export async function cleanupMac() {
     });
   });
 
-  const command = `echo "${password}" | sudo -S mac-cleanup ${selectedOptions.join(' ')}`;
+  const commandOptions = selectedOptions.filter(option => option !== '').join(' ');
+  const command = `echo "${password}" | sudo -S mac-cleanup ${commandOptions}`;
   
   console.log(chalk.blue('Running mac-cleanup...'));
   const progressBar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);

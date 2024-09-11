@@ -219,5 +219,6 @@ export async function handleAndroidOptions() {
 export function setupAndroid() {
   // Implement Android setup logic here
   console.log('Setting up Android environment...');
+  console.log('not implemented yet');
   // Add your Android setup steps
 }

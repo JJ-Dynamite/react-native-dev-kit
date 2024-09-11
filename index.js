@@ -18,10 +18,10 @@ async function mainMenu() {
       name: 'action',
       message: 'What would you like to do?',
       choices: [
-        'Android Options',
-        'iOS Options',
+        'Android',
+        'iOS',
+        'Cleanup Mac Cache',
         'Full Setup',
-        'Cleanup Old Installations',
         'Setup React Native',
         'Setup iOS Environment',
         'Setup Android Environment',
@@ -37,7 +37,7 @@ async function mainMenu() {
       await setupIOS();
       await setupAndroid();
       break;
-    case 'Cleanup Old Installations':
+    case 'Cleanup Mac Cache':
       await cleanupMac();
       break;
     case 'Setup React Native':
@@ -49,10 +49,10 @@ async function mainMenu() {
     case 'Setup Android Environment':
       await setupAndroid();
       break;
-    case 'iOS Options':
+    case 'iOS':
       await handleIosOptions();
       break;
-    case 'Android Options':
+    case 'Android':
       await handleAndroidOptions();
       break;
     case 'Exit':
