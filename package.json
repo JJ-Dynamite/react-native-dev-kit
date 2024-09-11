@@ -1,25 +1,21 @@
 {
-  "name": "k",
+  "name": "rn-mdk",
   "version": "1.0.0",
-  "description": "CLI tool for React Native setup automation",
+  "description": "RN-MDK: React Native Setup Automation CLI",
   "main": "index.js",
+  "type": "module",
   "bin": {
     "rn-mdk": "./index.js"
   },
   "scripts": {
     "start": "node index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["react-native", "cli", "setup", "automation"],
+  "author": "Joel J Mathew",
+  "license": "MIT",
   "dependencies": {
-    "chalk": "latest",
     "cli-progress": "^3.12.0",
     "commander": "^8.3.0",
-    "inquirer": "^9.0.0",
-    "ora": "^8.1.0",
-    "prompt-sync": "^4.2.0",
-    "shelljs": "^0.8.5"
-  },
-  "type": "module"
+    "inquirer": "^8.2.0"
+  }
 }
