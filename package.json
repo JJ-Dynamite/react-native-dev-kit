@@ -1,6 +1,6 @@
 {
   "name": "rn-mdk",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "RN-MDK: React Native Setup Automation CLI",
   "main": "index.js",
   "type": "module",
@@ -10,7 +10,12 @@
   "scripts": {
     "start": "node index.js"
   },
-  "keywords": ["react-native", "cli", "setup", "automation"],
+  "keywords": [
+    "react-native",
+    "cli",
+    "setup",
+    "automation"
+  ],
   "author": "Joel J Mathew",
   "license": "MIT",
   "dependencies": {
