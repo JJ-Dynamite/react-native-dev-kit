@@ -1,6 +1,6 @@
 {
   "name": "rn-mdk",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "RN-MDK: React Native Setup Automation CLI",
   "main": "index.js",
   "type": "module",
