@@ -10,7 +10,7 @@ async function checkAiderInstallation() {
   try {
     execSync('aider --version', { stdio: 'ignore' });
   } catch (error) {
-    console.log(chalk.yellow('aider is not installed. Installing now...'));
+    console.log(chalk.yellow('AI Assistant is not installed. Installing now...'));
     execSync('pip install aider', { stdio: 'inherit' });
   }
 }
@@ -118,20 +118,20 @@ async function updateAider() {
     if (fs.existsSync(updateFilePath)) {
       const lastUpdateTime = parseInt(fs.readFileSync(updateFilePath, 'utf8'));
       if (currentTime - lastUpdateTime < oneWeekInMs) {
-        console.log(chalk.yellow('Aider was updated within the last week. Skipping update.'));
+        console.log(chalk.yellow('AI Assistant was updated within the last week. Skipping update.'));
         return;
       }
     }
 
-    console.log(chalk.yellow('Checking for Aider updates...'));
+    console.log(chalk.yellow('Checking for AI Assistant updates...'));
     const result = execSync('/Users/apple/.pyenv/versions/3.9.7/bin/python -m pip install --upgrade aider-chat', { encoding: 'utf8' });
-    console.log(chalk.green('Aider updated successfully.'));
+    console.log(chalk.green('AI Assistant updated successfully.'));
     console.log(result);
 
     // Update the last update time
     fs.writeFileSync(updateFilePath, currentTime.toString());
   } catch (error) {
-    console.error(chalk.red('Error updating Aider:', error.message));
+    console.error(chalk.red('Error updating AI Assistant:', error.message));
   }
 }
 
@@ -186,7 +186,7 @@ async function updateGitignore() {
   if (!content.includes('.aider*')) {
     content += '\n.aider*';
     fs.writeFileSync(gitignorePath, content);
-    console.log(chalk.green('Added .aider* to .gitignore'));
+    console.log(chalk.green('Added AI Assistant to .gitignore'));
   }
 }
 

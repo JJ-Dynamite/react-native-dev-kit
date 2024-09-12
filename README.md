@@ -38,7 +38,7 @@ Streamline your React Native development environment setup with this powerful au
 After installation, you can use rn-mdk for various tasks in your React Native development workflow:
 
 ```bash
-➜ rn-mdk                    
+➜ rn-mdk
 Welcome to RN-MDK: React Native Mobile Development Kit
 ? What would you like to do?
 ❯ Android
@@ -48,19 +48,21 @@ Welcome to RN-MDK: React Native Mobile Development Kit
   Setup React Native
   Setup iOS Environment
   Setup Android Environment
-(Use arrow keys to reveal more choices) 
+(Use arrow keys to reveal more choices)
 ```
 
 ## Video Demo
 
-[![Video Demo](https://img.youtube.com/vi/RctLdGofZOk/0.jpg)](https://youtu.be/RctLdGofZOk)
+- Android
+- [![Video Demo](https://img.youtube.com/vi/RctLdGofZOk/0.jpg)](https://youtu.be/RctLdGofZOk)
 
-[![Video Demo](https://img.youtube.com/vi/uJEM3v3oUZM/0.jpg)](https://youtu.be/uJEM3v3oUZM)
+- iOS and Cleanup
 
+- [![Video Demo](https://img.youtube.com/vi/uJEM3v3oUZM/0.jpg)](https://youtu.be/uJEM3v3oUZM)
 
-[![Video Demo](https://img.youtube.com/vi/PCoLMqSlg8A/0.jpg)](https://youtu.be/PCoLMqSlg8A)
+- AI Assistant
 
-
+- [![AI Assistant](https://img.youtube.com/vi/PCoLMqSlg8A/0.jpg)](https://youtu.be/PCoLMqSlg8A)
 
 ### Options(future flags)
 
@@ -173,11 +175,12 @@ Here are some planned enhancements for future versions of rn-mdk:
 10. App store submission helper: Automate parts of the app store submission process.
 
 ## Future Usage
- ```bash
- rn-mdk --cleanup
- rn-mdk --ios
- rn-mdk --android
- rn-mdk --full
+
+```bash
+rn-mdk --cleanup
+rn-mdk --ios
+rn-mdk --android
+rn-mdk --full
 
 # Initialize a new React Native project
 rn-mdk init MyNewProject
@@ -197,7 +200,7 @@ rn-mdk rename MyNewProject MyOldProject
 
 # Auto migrate
 rn-mdk migrate 0.72 0.76
- ```
+```
 
 We're always looking to improve rn-mdk. If you have suggestions for additional features, please open an issue or submit a pull request!
 
