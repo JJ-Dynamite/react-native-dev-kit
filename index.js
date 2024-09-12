@@ -8,7 +8,7 @@ import { setupIOS, handleIosOptions } from './ios.js';
 import { setupAndroid, handleAndroidOptions } from './android.js';
 import { handleAiderOptions } from './aider.js';
 import { handleGitOptions } from './git.js';
-import { exec } from 'child_process';
+import { exec, spawn } from 'child_process';
 import { promisify } from 'util';
 
 const execAsync = promisify(exec);
@@ -35,6 +35,7 @@ async function mainMenu() {
           'Setup React Native',
           'Setup iOS Environment',
           'Setup Android Environment',
+          'Monitor Logs',
           'Exit'
         ]
       }
@@ -73,6 +74,9 @@ async function mainMenu() {
         break;
       case 'Rename Project':
         await renameProject();
+        break;
+      case 'Monitor Logs':
+        await monitorLogs();
         break;
       case 'Exit':
         console.log('Thank you for using RN-MDK. Goodbye!');
@@ -116,5 +120,60 @@ async function renameProject() {
   }
 }
 
+async function monitorLogs() {
+  const { logType } = await inquirer.prompt([
+    {
+      type: 'list',
+      name: 'logType',
+      message: 'Which logs would you like to monitor?',
+      choices: ['Metro', 'iOS', 'Android', 'Reactotron']
+    }
+  ]);
+
+  try {
+    let command;
+    let args;
+    switch (logType) {
+      case 'Metro':
+        command = 'bunx';
+        args = ['react-native', 'start'];
+        break;
+      case 'iOS':
+        command = 'bunx';
+        args = ['react-native', 'log-ios'];
+        break;
+      case 'Android':
+        command = 'bunx';
+        args = ['react-native', 'log-android'];
+        break;
+      case 'Reactotron':
+        console.log('Starting Reactotron...');
+        command = 'bunx';
+        args = ['reactotron-cli'];
+        break;
+    }
+
+    console.log(`Starting ${logType} logs...`);
+    const child = spawn(command, args, { stdio: 'inherit' });
+    
+    // Allow the user to stop the logging process
+    console.log('Press Ctrl+C to stop monitoring logs.');
+    await new Promise((resolve) => {
+      child.on('close', (code) => {
+        console.log(`${logType} process exited with code ${code}`);
+        resolve();
+      });
+    });
+  } catch (error) {
+    console.error(`Error monitoring ${logType} logs:`, error.message);
+  }
+}
+
 console.log('Welcome to RN-MDK: React Native Mobile Development Kit 🚀 a complete automation kit for React Native');
 mainMenu().catch(console.error);
+
+// Remove this part from the end of the file
+// if (process.argv[2] === 'reactotron') {
+//   exec('chmod +x start-cli.sh', { stdio: 'inherit' });
+//   exec('bunx reactotron-cli', { stdio: 'inherit' });
+// }

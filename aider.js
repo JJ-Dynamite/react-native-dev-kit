@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import { execSync, spawn } from 'child_process';
+import { execSync, spawn, exec } from 'child_process';
 import inquirer from 'inquirer';
 import fs from 'fs';
 import os from 'os';
@@ -228,54 +228,52 @@ export async function handleAiderOptions() {
     process.exit(1);
   }
 
-  console.log(chalk.green('All set! Opening aider...'));
+  console.log(chalk.green('Valid API keys found:'));
+  validKeys.forEach(key => console.log(chalk.green(`- ${key}`)));
 
-  let aiderCommand = 'aider';
-  if (validKeys.includes('ANTHROPIC_API_KEY')) {
-    aiderCommand += ' --sonnet';
-  } else if (validKeys.includes('OPENAI_API_KEY')) {
-    aiderCommand += ' --4o';
-  } else if (validKeys.includes('DEEPSEEK_API_KEY')) {
-    aiderCommand += ' --deepseek';
+  let selectedKey;
+  if (validKeys.length === 1) {
+    selectedKey = validKeys[0];
+    console.log(chalk.cyan(`Automatically selecting the only valid key: ${selectedKey}`));
+  } else {
+    const { chosenKey } = await inquirer.prompt([
+      {
+        type: 'list',
+        name: 'chosenKey',
+        message: 'Choose which API to use:',
+        choices: validKeys.map(key => ({ name: key, value: key }))
+      }
+    ]);
+    selectedKey = chosenKey;
   }
 
-  // Add flag to disable pretty output
-  aiderCommand += ' --no-pretty';
+  console.log(chalk.yellow('Launching AI Assistant. This may take a moment...'));
 
-  // Set environment variables
-  const env = {
-    ...process.env,
-    AIDER_PRETTY: 'false',
-    TERM: 'dumb' // This might help with the CPR warning
-  };
+  // Prepare the Aider command
+  let aiderCommand = 'aider';
+  switch (selectedKey) {
+    case 'ANTHROPIC_API_KEY':
+      aiderCommand += ' --sonnet';
+      break;
+    case 'OPENAI_API_KEY':
+      aiderCommand += ' --4o';
+      break;
+    case 'DEEPSEEK_API_KEY':
+      aiderCommand += ' --deepseek';
+      break;
+  }
 
-  console.log(chalk.yellow('Launching Aider. This may take a moment...'));
-
-  const aiderProcess = spawn(aiderCommand, [], {
-    stdio: 'inherit',
-    shell: true,
-    env: env
-  });
-
-  console.log(chalk.yellow('Aider is now running. You can use the Aider CLI.'));
-  console.log(chalk.yellow('Press Ctrl+C to exit Aider and return to the main menu.'));
-
-  // Wait for Aider to exit
-  await new Promise((resolve) => {
-    aiderProcess.on('error', (error) => {
-      console.error(chalk.red('Error launching Aider:', error.message));
-      resolve();
-    });
-
-    aiderProcess.on('close', (code) => {
-      if (code === 0) {
-        console.log(chalk.green('Aider exited successfully.'));
-      } else {
-        console.log(chalk.yellow(`Aider exited with code ${code}`));
-      }
-      resolve();
+  // console.log(chalk.cyan(`Executing command: ${aiderCommand}`));
+  
+  // Execute Aider command and replace the current process
+  const aiderArgs = aiderCommand.split(' ').slice(1);
+  console.log(chalk.yellow('AI Assistant is starting. To return to the main menu, exit AI Assistant and restart the CLI.'));
+  process.on('exit', () => {
+    require('child_process').spawn(aiderCommand.split(' ')[0], aiderArgs, {
+      stdio: 'inherit',
+      detached: true,
+      shell: true
     });
   });
-
-  console.log(chalk.green('Returning to main menu...'));
+  process.exit();
 }
