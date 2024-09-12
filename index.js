@@ -8,6 +8,10 @@ import { setupIOS, handleIosOptions } from './ios.js';
 import { setupAndroid, handleAndroidOptions } from './android.js';
 import { handleAiderOptions } from './aider.js';
 import { handleGitOptions } from './git.js';
+import { exec } from 'child_process';
+import { promisify } from 'util';
+
+const execAsync = promisify(exec);
 
 program
   .version('1.0.0')
@@ -25,6 +29,7 @@ async function mainMenu() {
           'Android',
           'iOS',
           'Manage Git',
+          'Rename Project',
           'Cleanup Mac Cache',
           'Full Setup',
           'Setup React Native',
@@ -66,10 +71,48 @@ async function mainMenu() {
       case 'Manage Git':
         await handleGitOptions();
         break;
+      case 'Rename Project':
+        await renameProject();
+        break;
       case 'Exit':
         console.log('Thank you for using RN-MDK. Goodbye!');
         process.exit(0);
     }
+  }
+}
+
+async function renameProject() {
+  const { newName, bundleId } = await inquirer.prompt([
+    {
+      type: 'input',
+      name: 'newName',
+      message: 'Enter the new name for your project:',
+      validate: input => input.trim() !== '' || 'Project name cannot be empty'
+    },
+    {
+      type: 'input',
+      name: 'bundleId',
+      message: 'Enter the new bundle identifier (optional, e.g., com.example.app):',
+      default: ''
+    }
+  ]);
+
+  try {
+    let command = `npx react-native-rename "${newName}"`;
+    if (bundleId) {
+      command += ` -b ${bundleId}`;
+    }
+
+    console.log('Renaming project...');
+    const { stdout, stderr } = await execAsync(command);
+    console.log(stdout);
+    if (stderr) console.error(stderr);
+
+    console.log('Project renamed successfully!');
+    console.log('Please note that you may need to manually update some files and clean your project.');
+    console.log('Refer to the react-native-rename documentation for more details.');
+  } catch (error) {
+    console.error('Error renaming project:', error.message);
   }
 }
 
