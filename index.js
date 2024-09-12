@@ -7,6 +7,7 @@ import { cleanupMac } from './macCleanup.js';
 import { setupIOS, handleIosOptions } from './ios.js';
 import { setupAndroid, handleAndroidOptions } from './android.js';
 import { handleAiderOptions } from './aider.js';
+import { handleGitOptions } from './git.js';
 
 program
   .version('1.0.0')
@@ -23,6 +24,7 @@ async function mainMenu() {
           'Code with AI',  
           'Android',
           'iOS',
+          'Manage Git',
           'Cleanup Mac Cache',
           'Full Setup',
           'Setup React Native',
@@ -60,6 +62,9 @@ async function mainMenu() {
         break;
       case 'Android':
         await handleAndroidOptions();
+        break;
+      case 'Manage Git':
+        await handleGitOptions();
         break;
       case 'Exit':
         console.log('Thank you for using RN-MDK. Goodbye!');
