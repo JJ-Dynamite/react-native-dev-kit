@@ -247,7 +247,7 @@ export async function handleAiderOptions() {
     selectedKey = chosenKey;
   }
 
-  console.log(chalk.yellow('Launching AI Assistant. This may take a moment...'));
+  console.log(chalk.yellow('Launching AI Assistant in a new terminal window. This may take a moment...'));
 
   // Prepare the Aider command
   let aiderCommand = 'aider';
@@ -263,17 +263,37 @@ export async function handleAiderOptions() {
       break;
   }
 
-  // console.log(chalk.cyan(`Executing command: ${aiderCommand}`));
+  // Get the current working directory
+  const currentDir = process.cwd();
+
+  // Determine the operating system and construct the appropriate command
+  let terminalCommand;
+  if (process.platform === 'darwin') {
+    // macOS
+    terminalCommand = `osascript -e 'tell app "Terminal" to do script "cd ${currentDir} && ${aiderCommand}"'`;
+  } else if (process.platform === 'win32') {
+    // Windows
+    terminalCommand = `start cmd.exe /K "cd /d ${currentDir} && ${aiderCommand}"`;
+  } else {
+    // Linux and others (assuming xterm is available)
+    terminalCommand = `xterm -e "cd ${currentDir} && ${aiderCommand}" &`;
+  }
+
+  console.log(chalk.yellow('Opening AI Assistant in a new terminal window...'));
   
-  // Execute Aider command and replace the current process
-  const aiderArgs = aiderCommand.split(' ').slice(1);
-  console.log(chalk.yellow('AI Assistant is starting. To return to the main menu, exit AI Assistant and restart the CLI.'));
-  process.on('exit', () => {
-    require('child_process').spawn(aiderCommand.split(' ')[0], aiderArgs, {
-      stdio: 'inherit',
-      detached: true,
-      shell: true
-    });
+  // Execute the terminal command
+  exec(terminalCommand, (error, stdout, stderr) => {
+    if (error) {
+      console.error(chalk.red(`Error opening new terminal: ${error.message}`));
+      return;
+    }
+    if (stderr) {
+      console.error(chalk.red(`stderr: ${stderr}`));
+      return;
+    }
+    console.log(chalk.green('AI Assistant launched in a new terminal window.'));
   });
-  process.exit();
+
+  console.log(chalk.yellow('You can now close this CLI or keep it open for other tasks.'));
+  console.log(chalk.yellow('To use the AI Assistant again, select "Code with AI" from the main menu.'));
 }
