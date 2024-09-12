@@ -51,6 +51,17 @@ Welcome to RN-MDK: React Native Mobile Development Kit
 (Use arrow keys to reveal more choices) 
 ```
 
+## Video Demo
+
+[![Video Demo](https://img.youtube.com/vi/RctLdGofZOk/0.jpg)](https://youtu.be/RctLdGofZOk)
+
+[![Video Demo](https://img.youtube.com/vi/uJEM3v3oUZM/0.jpg)](https://youtu.be/uJEM3v3oUZM)
+
+
+[![Video Demo](https://img.youtube.com/vi/PCoLMqSlg8A/0.jpg)](https://youtu.be/PCoLMqSlg8A)
+
+
+
 ### Options(future flags)
 
 - `-c, --cleanup`: Remove old React Native installations
