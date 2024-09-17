@@ -10,6 +10,31 @@ const execAsync = promisify(exec);
 async function installMacCleanup() {
   try {
     console.log(chalk.yellow('Checking if mac-cleanup is installed...'));
+    console.log('Cleaning up Mac cache...');
+    try {
+      // Clean Xcode derived data
+      await execAsync('rm -rf ~/Library/Developer/Xcode/DerivedData');
+  
+      // Clean CocoaPods cache
+      await execAsync('pod cache clean --all');
+  
+      // Clean npm cache
+      await execAsync('npm cache clean --force');
+  
+      // Clean yarn cache
+      await execAsync('yarn cache clean');
+  
+      // Clean Metro bundler cache
+      await execAsync('rm -rf $TMPDIR/metro-*');
+  
+      // Clean React Native cache
+      await execAsync('rm -rf $TMPDIR/react-*');
+  
+      console.log('Mac cleanup completed successfully!');
+    } catch (error) {
+      console.error('Error during Mac cleanup:', error.message);
+    }
+
     await execAsync('mac-cleanup -h');
     console.log(chalk.green('mac-cleanup is already installed.'));
   } catch (error) {

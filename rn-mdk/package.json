@@ -1,0 +1,19 @@
+{
+  "name": "rn-mdk",
+  "version": "1.1.0",
+  "description": "DEPRECATED: Use 'mdk' instead. React Native Mobile Development Kit",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "react-native",
+    "cli",
+    "setup",
+    "automation",
+    "deprecated"
+  ],
+  "author": "Joel J Mathew",
+  "license": "MIT",
+  "deprecated": "This package has been renamed to 'mdk'. Please update your dependencies."
+}

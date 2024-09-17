@@ -1,15 +1,16 @@
 #!/usr/bin/env node
 
-import inquirer from 'inquirer';
-import { program } from 'commander';
-import { setupReactNative } from './reactNativeSetup.js';
-import { cleanupMac } from './macCleanup.js';
-import { setupIOS, handleIosOptions } from './ios.js';
-import { setupAndroid, handleAndroidOptions } from './android.js';
-import { handleAiderOptions } from './aider.js';
-import { handleGitOptions } from './git.js';
-import { exec, spawn } from 'child_process';
-import { promisify } from 'util';
+const inquirer = require('inquirer');
+const { program } = require('commander');
+const { setupReactNative } = require('./reactNativeSetup.js');
+const { cleanupMac } = require('./macCleanup.js');
+const { setupIOS, handleIosOptions } = require('./ios.js');
+const { setupAndroid, handleAndroidOptions } = require('./android.js');
+const { handleAiderOptions } = require('./aider.js');
+const { handleGitOptions } = require('./git.js');
+const { exec, spawn } = require('child_process');
+const { promisify } = require('util');
+const { setupFastlane, handleFastlaneOptions } = require('./fastlane.js');
 
 const execAsync = promisify(exec);
 
@@ -36,6 +37,7 @@ async function mainMenu() {
           'Setup iOS Environment',
           'Setup Android Environment',
           'Monitor Logs',
+          'Fastlane', 
           'Exit'
         ]
       }
@@ -77,6 +79,9 @@ async function mainMenu() {
         break;
       case 'Monitor Logs':
         await monitorLogs();
+        break;
+      case 'Fastlane':
+        await handleFastlaneOptions();
         break;
       case 'Exit':
         console.log('Thank you for using RN-MDK. Goodbye!');
@@ -170,10 +175,15 @@ async function monitorLogs() {
 }
 
 console.log('Welcome to RN-MDK: React Native Mobile Development Kit 🚀 a complete automation kit for React Native');
-mainMenu().catch(console.error);
 
-// Remove this part from the end of the file
-// if (process.argv[2] === 'reactotron') {
-//   exec('chmod +x start-cli.sh', { stdio: 'inherit' });
-//   exec('bunx reactotron-cli', { stdio: 'inherit' });
-// }
+module.exports = {
+  mainMenu,
+  renameProject,
+  monitorLogs,
+  cleanupMac,
+  setupIOS,
+  setupAndroid,
+  handleGitOptions,
+  handleAiderOptions,
+  handleFastlaneOptions
+};

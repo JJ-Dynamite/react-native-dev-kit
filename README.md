@@ -1,4 +1,4 @@
-# RN-MDK: React Native Mobile Development Kit
+# mdk: React Native Mobile Development Kit
 
 Streamline your React Native development environment setup with this powerful automation tool.
 
@@ -30,26 +30,24 @@ Streamline your React Native development environment setup with this powerful au
 2. Install the CLI tool globally using npm:
 
    ```bash
-   npm install -g rn-mdk
+   npm install -g mdk
    ```
 
 ## Usage
 
-After installation, you can use rn-mdk for various tasks in your React Native development workflow:
+mdk can be used with the following command-line options:
 
-```bash
-➜ rn-mdk
-Welcome to RN-MDK: React Native Mobile Development Kit
-? What would you like to do?
-❯ Android
-  iOS
-  Cleanup Mac Cache
-  Full Setup
-  Setup React Native
-  Setup iOS Environment
-  Setup Android Environment
-(Use arrow keys to reveal more choices)
-```
+- `-c, --cleanup`: Remove old React Native installations
+- `-i, --ios`: Set up iOS development environment
+- `-a, --android`: Set up Android development environment
+- `-g, --git`: Manage Git
+- `-ai, --aider`: Code with AI using Aider
+- `-fl, --fastlane`: Run Fastlane tasks
+- `-f, --full`: Perform full setup (cleanup, iOS, and Android)
+- `-V, --version`: Output the version number
+- `-h, --help`: Display help for command
+
+If no options are provided, mdk will show an interactive menu.
 
 ## Video Demo
 
@@ -78,18 +76,18 @@ Welcome to RN-MDK: React Native Mobile Development Kit
 1. Perform a full setup:
 
    ```bash
-   rn-mkd --full
+   mdk --full
    ```
 
 2. Clean up old installations and set up iOS environment:
 
    ```bash
-   rn-mkd --cleanup --ios
+   mdk --cleanup --ios
    ```
 
 3. Set up Android environment only:
    ```bash
-   rn-mkd --android
+   mdk --android
    ```
 
 ## Help
@@ -161,7 +159,7 @@ To set up the project, run the following commands:
 
 ## Future Features
 
-Here are some planned enhancements for future versions of rn-mdk:
+Here are some planned enhancements for future versions of mdk:
 
 1. Automated dependency management: Intelligent updating and conflict resolution for project dependencies.
 2. Custom template support: Allow users to create and use their own project templates.
@@ -177,35 +175,47 @@ Here are some planned enhancements for future versions of rn-mdk:
 ## Future Usage
 
 ```bash
-rn-mdk --cleanup
-rn-mdk --ios
-rn-mdk --android
-rn-mdk --full
+mdk --cleanup
+mdk --ios
+mdk --android
+mdk --full
 
 # Initialize a new React Native project
-rn-mdk init MyNewProject
+mdk init MyNewProject
 
 # Run your React Native app
-rn-mdk run-android
-rn-mdk run-ios
+mdk run-android
+mdk run-ios
 
 # Generate components or screens
-rn-mdk generate component MyComponent
-rn-mdk generate screen MyScreen
+mdk generate component MyComponent
+mdk generate screen MyScreen
 
 # Add dependencies
-rn-mdk add redux react-redux
+mdk add redux react-redux
 # Rename a project
-rn-mdk rename MyNewProject MyOldProject
+mdk rename MyNewProject MyOldProject
 
 # Auto migrate
-rn-mdk migrate 0.72 0.76
+mdk migrate 0.72 0.76
+
+# Open the React Native Code Editor
+mdk --open
+
+# Run browser tasks
+
+mdk --browse 'play shape of you on youtube'
+
 ```
 
-We're always looking to improve rn-mdk. If you have suggestions for additional features, please open an issue or submit a pull request!
+We're always looking to improve mdk. If you have suggestions for additional features, please open an issue or submit a pull request!
 
 ## Tutorial
 
 ...
 
-If the video doesn't play, you can [download the tutorial video here](assets/tutorial.mov).
+to do (`fastlane`)
+- Compile and sign Android/iOS apps with custom native code (`mdk --build`)
+- Upload your app to the Play Store or App Store with a single command. (`mdk --auto-submit`)
+- Seamlessly deliver live app updates, critical bug fixes, content changes, beta features, and more to give your users the best experience possible.
+ (`mdk --publish -b production -v 1.0.1`)
