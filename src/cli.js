@@ -1,5 +1,4 @@
 const { build } = require('gluegun');
-const { mainMenu, cleanupMac, setupIOS, setupAndroid, handleGitOptions, handleAiderOptions, handleFastlaneOptions, renameProject, monitorLogs } = require('../index.js');
 
 async function run(argv) {
   const cli = build()
@@ -12,12 +11,10 @@ async function run(argv) {
 
   const toolbox = await cli.run(argv);
 
-  // Run the main menu or specific command based on argv
-  if (argv.length <= 2) {
-    await mainMenu(toolbox);
-  } else {
-    // Handle specific commands here
-    // For example: toolbox.command.run('setup')
+  // If no command was run, show the main menu
+  if (!toolbox.command) {
+    const { mainMenu } = require('../index.js');
+    await mainMenu();
   }
 
   return toolbox;
