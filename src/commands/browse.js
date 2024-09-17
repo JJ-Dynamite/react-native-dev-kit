@@ -12,6 +12,24 @@ module.exports = {
       return;
     }
     
-    await handleAutomatedBrowsing(query);
+    const setupSentient = require('../../sentientSetup');
+    
+    async function browse(query) {
+      console.log(`Initiating automated browsing for: ${query}`);
+
+      try {
+        const sentientSetupSuccess = await setupSentient();
+        if (!sentientSetupSuccess) {
+          console.log("Sentient setup failed. Please check your OpenAI API key and try again.");
+          return;
+        }
+
+        // ... rest of the browsing logic ...
+      } catch (error) {
+        console.error("Error during browsing:", error);
+      }
+    }
+    
+    await browse(query);
   }
 };

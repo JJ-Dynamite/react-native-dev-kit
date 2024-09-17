@@ -125,6 +125,7 @@ async function mainMenu() {
         message: 'What would you like to do?',
         choices: [
           'Code with AI',  
+          'Automated Browsing',
           'Android',
           'iOS',
           'Manage Git',
@@ -137,7 +138,6 @@ async function mainMenu() {
           'Monitor Logs',
           'Fastlane', 
           'Exit',
-          'Automated Browsing'
         ]
       }
     ]);
@@ -290,5 +290,5 @@ module.exports = {
   handleFastlaneOptions,
   renameProject,
   monitorLogs,
-  handleAutomatedBrowsing
+  handleAutomatedBrowsing  // Add this line
 };
