@@ -3,6 +3,10 @@
   "version": "1.1.0",
   "description": "DEPRECATED: Use 'mdk' instead. React Native Mobile Development Kit",
   "main": "index.js",
+  "bin": {
+    "rn-mdk": "./index.js",
+    "valen": "./index.js"
+  },
   "scripts": {
     "start": "node index.js"
   },
@@ -15,5 +19,10 @@
   ],
   "author": "Joel J Mathew",
   "license": "MIT",
-  "deprecated": "This package has been renamed to 'mdk'. Please update your dependencies."
+  "deprecated": "This package has been renamed to 'mdk'. Please update your dependencies.",
+  "dependencies": {
+    "commander": "^8.3.0",
+    "inquirer": "^8.2.0",
+    "dotenv": "^10.0.0"
+  }
 }
