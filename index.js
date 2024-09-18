@@ -14,6 +14,10 @@ const { promisify } = require('util');
 const { setupFastlane, handleFastlaneOptions } = require('./fastlane.js');
 const inquirer = require('inquirer');
 const { setupSentient } = require('./sentientSetup.js');
+const open = require('open'); // Add this import
+const { execSync } = require('child_process');
+const { createInterface } = require('readline');
+const { handleReactNativeUpgrade, handleUpgradeOption } = require('./upgrade.js');
 
 const execAsync = promisify(exec);
 
@@ -33,7 +37,8 @@ program
   .option('-f, --fastlane', 'Run Fastlane commands')
   .option('-g, --git', 'Manage Git')
   .option('-A, --ai', 'Code with AI')
-  .option('-b, --browse <what to browse>', 'Automated Browsing');
+  .option('-b, --browse <what to browse>', 'Automated Browsing')
+  .option('-u, --upgrade <type>', 'Upgrade React Native project (web or auto)');
 
 program.parse(process.argv);
 
@@ -66,6 +71,8 @@ async function handleCommandLineOptions(options) {
     await handleGitOptions();
   } else if (options.browse) {
     await handleAutomatedBrowsing(options.browse);
+  } else if (options.upgrade) {
+    await handleUpgradeOption(options.upgrade);
   }
 }
 
@@ -130,6 +137,7 @@ async function mainMenu() {
           'iOS',
           'Manage Git',
           'Rename Project',
+          'Upgrade Project',
           'Cleanup Mac Cache',
           'Full Setup',
           'Setup React Native',
@@ -195,6 +203,24 @@ async function mainMenu() {
         ]);
         await handleAutomatedBrowsing(query);
         break;
+      case 'Upgrade Project':
+        await handleReactNativeUpgrade();
+        break;
+    }
+  }
+}
+
+async function ensurePackageInstalled(packageName) {
+  try {
+    require.resolve(packageName);
+  } catch (e) {
+    console.log(`Installing ${packageName}...`);
+    try {
+      execSync(`bun add ${packageName}`, { stdio: 'inherit' });
+      console.log(`${packageName} installed successfully.`);
+    } catch (error) {
+      console.error(`Failed to install ${packageName}:`, error.message);
+      process.exit(1);
     }
   }
 }
@@ -290,5 +316,5 @@ module.exports = {
   handleFastlaneOptions,
   renameProject,
   monitorLogs,
-  handleAutomatedBrowsing  // Add this line
+  handleAutomatedBrowsing  
 };
