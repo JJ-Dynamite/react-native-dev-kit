@@ -38,7 +38,11 @@ program
   .option('-g, --git', 'Manage Git')
   .option('-A, --ai', 'Code with AI')
   .option('-b, --browse <what to browse>', 'Automated Browsing')
-  .option('-u, --upgrade <type>', 'Upgrade React Native project (web or auto)');
+  .option('-u, --upgrade <type>', 'Upgrade React Native project (web or auto)')
+  .option('--app-name <name>', 'App name for upgrade')
+  .option('--app-package <package>', 'App package for upgrade')
+  .option('--current-version <version>', 'Current React Native version')
+  .option('--target-version <version>', 'Target React Native version');
 
 program.parse(process.argv);
 
@@ -51,7 +55,15 @@ if (Object.keys(options).length === 0) {
 }
 
 async function handleCommandLineOptions(options) {
-  if (options.ai) {
+  if (options.upgrade) {
+    await handleUpgradeOption(
+      options.upgrade,
+      options.appName,
+      options.appPackage,
+      options.currentVersion,
+      options.targetVersion
+    );
+  } else if (options.ai) {
     await handleAiderOptions();
   } else if (options.android) {
     await handleAndroidOptions();
@@ -71,8 +83,6 @@ async function handleCommandLineOptions(options) {
     await handleGitOptions();
   } else if (options.browse) {
     await handleAutomatedBrowsing(options.browse);
-  } else if (options.upgrade) {
-    await handleUpgradeOption(options.upgrade);
   }
 }
 
